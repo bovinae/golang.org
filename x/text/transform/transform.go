@@ -141,6 +141,20 @@ func NewReader(r io.Reader, t Transformer) *Reader {
 	}
 }
 
+func (r *Reader) Reset(reader io.Reader) {
+	r.t.Reset()
+	r.r = reader
+	r.err = nil
+
+	r.dst0 = 0
+	r.dst1 = 0
+
+	r.src0 = 0
+	r.src1 = 0
+
+	r.transformComplete = false
+}
+
 // Read implements the io.Reader interface.
 func (r *Reader) Read(p []byte) (int, error) {
 	n, err := 0, error(nil)
